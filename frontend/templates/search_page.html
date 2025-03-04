@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Frasers Experience - Search Results{% endblock %}
+
+{% block content %}
+<section class="search-results">
+    <div class="search-tile-container">
+        <div class="search-results-text-container">
+            <h2>Search Results</h2>
+        </div>
+        <div class="filter-btn">
+            <h2>Filter</h2>
+            <h2 style="position: relative;">
+                <i class="fas fa-filter filter-icon" id="filter-icon" style="margin-left: 10px;" title="Filter Results"></i>
+            </h2>
+        </div>
+        <!-- Filter modal & overlay remain unchanged -->
+        <div id="filter-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 190;"></div>
+        <div id="filter-modal" class="filter-scrn" style="display: none; border-radius: 8px; position: absolute; flex-direction: column; top: 225px; left: 75%; transform: translateX(-20%); width: 275px; background: #fff; border: 1px solid #ccc; padding: 20px; z-index: 200; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+            <style>
+                .filter-scrn label {
+                     margin-bottom: 2px;
+                     line-height: 1.2;
+                     display: block;
+                }
+                #filter-modal label:hover {
+                    background-color: #f0f0f0;
+                    cursor: pointer;
+                }
+            </style>
+            <label class="filter-option"><input type="checkbox" id="category-filter"> Category</label>
+            <label class="filter-option"><input type="checkbox" id="store-type-filter"> Store Type</label>
+            <label class="filter-option"><input type="checkbox" id="promotions-filter"> Promotions</label>
+    
+            <div class="saver" style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                <button type="button" class="save-button" id="save-filter" title="Save" style="margin: 5px; padding: 8px 12px; background-color: #28a745; color: #fff; border: none; border-radius: 4px; cursor: pointer; width: 100px;">Save</button>
+            </div>
+        </div>
+        <style>
+            #filter-icon { cursor: pointer; }
+        </style>
+    </div>
+    <div id="results-contain" class="store-layout">
+        {% if search_data %}
+            {% for item in search_data %}
+                {% set img = item.image %}
+                {% if img and img.startswith('static/') %}
+                    {% set img = img[7:] %}
+                {% endif %}
+                <div class="card-layout">
+                    <div class="store-card-img" style="
+                        background-image: url('{{ url_for('static', filename=img if img else 'images/default.jpg') }}');
+                        ">
+                    </div>
+                    <div class="store-card-text">
+                        <p style="margin: 0; font-size: 14px; word-wrap: break-word;">
+                            {{ item.name }}. {{ item.category }}. {{ item.hours }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No search results found.</p>
+        {% endif %}
+    </div>
+    <div id="loading-icon" style="display: none; text-align: center; margin-top: 20px;">
+      <img src="{{ url_for('static', filename='images/loader.gif') }}" alt="Loading..." style="width:50px;">
+      <p>Loading...</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterIcon = document.getElementById('filter-icon');
+            const filterModal = document.getElementById('filter-modal');
+            const filterOverlay = document.getElementById('filter-overlay');
+            const saveFilterBtn = document.getElementById('save-filter');
+            const loadingIcon = document.getElementById('loading-icon');
+            const closeFilter = document.getElementById('close-filter'); // if exists
+
+            const showModal = () => {
+                filterModal.style.display = "flex";
+                filterOverlay.style.display = "block";
+            };
+
+            const hideModal = () => {
+                filterModal.style.display = "none";
+                filterOverlay.style.display = "none";
+            };
+
+            filterIcon.addEventListener('click', (e) => {
+                // Stop propagation so overlay click doesn't trigger immediately on icon click
+                e.stopPropagation();
+                if (filterModal.style.display === "none" || filterModal.style.display === "") {
+                    showModal();
+                } else {
+                    hideModal();
+                }
+            });
+            
+            if (closeFilter) {
+                closeFilter.addEventListener('click', hideModal);
+            }
+            
+            // Clicking the overlay hides the modal and prevents actions outside the modal
+            filterOverlay.addEventListener('click', hideModal);
+
+            // Prevent clicks inside the modal from hiding it
+            filterModal.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            // When "Save" is clicked, gather filters, show loader, update URL parameters, and reload page
+            saveFilterBtn.addEventListener('click', () => {
+                // Gather filters
+                const filters = [];
+                const categoryFilter = document.getElementById('category-filter');
+                const storeTypeFilter = document.getElementById('store-type-filter');
+                const promotionsFilter = document.getElementById('promotions-filter');
+
+                if (categoryFilter && categoryFilter.checked) { filters.push("Category"); }
+                if (storeTypeFilter && storeTypeFilter.checked) { filters.push("Store Type"); }
+                if (promotionsFilter && promotionsFilter.checked) { filters.push("Promotions"); }
+
+                // Hide modal and overlay, show loading indicator
+                hideModal();
+                loadingIcon.style.display = "block";
+
+                // Update URL parameters with the current search query and filters
+                const urlParams = new URLSearchParams(window.location.search);
+                const searchQuery = urlParams.get('search') || '';
+                urlParams.delete('filter');
+                filters.forEach(filter => {
+                    urlParams.append('filter', filter);
+                });
+                window.location.search = urlParams.toString();
+            });
+
+        });
+    </script>
+{% endblock %}

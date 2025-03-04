@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Frasers Experience{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <!-- Add Font Awesome for the filter icon -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        
+        {% block extra_css %}
+        <style>
+            .main-navigation a {
+                color: #fff;
+            }
+            /* Flash message styling */
+            #flash-messages {
+                position: fixed;
+                top: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1000;
+            }
+            .flash-message {
+                padding: 10px;
+                margin: 5px;
+                border-radius: 3px;
+                text-align: center;
+                transition: opacity 0.5s ease-out;
+                cursor: pointer;
+            }
+            .flash-message.success {
+                background-color: #d4edda;
+                color: #155724;
+            }
+            .flash-message.error {
+                background-color: #f8d7da;
+                color: #721c24;
+            }
+            .flash-message.fade-out {
+                opacity: 0;
+            }
+        </style>
+        {% endblock %}
+    </head>
+    <body>
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div id="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="fixed-top">
+            <header class="admin-nav">
+                <div class="header-container">
+                    <!-- Left section -->
+                    <div class="header-left">
+                        <div class="logo">
+                            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Frasers Experience Logo">
+                        </div>
+                    </div>
+                    <!-- Center section -->
+                    <div class="header-center">
+                        <div style="text-align: center; margin-top: 15px;">
+                            <h3>{% block header_title %}Admin Panel{% endblock %}</h3>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <nav class="main-navigation" style="background-color: rgba(68, 68, 68, 1); display: flex; justify-content: center; flex-wrap: wrap;">
+                <ul>
+                    <li class="nav-item" style="margin: 0 10px;">
+                        <a href="{{ url_for('custom_admin.index') }}"
+                             {% if request.endpoint == 'custom_admin.index' %}class="active"{% endif %}>Home</a>
+                    </li>
+                    <li class="nav-item" style="margin: 0 10px;">
+                        <a href="{{ url_for('custom_admin.add_store') }}"
+                             {% if active_nav == 'add_items' or request.endpoint == 'custom_admin.add_store' %}class="active"{% endif %}>Add Items</a>
+                    </li>
+                    <li class="nav-item" style="margin: 0 10px;">
+                        <a href="{{ url_for('custom_admin.stores') }}"
+                             {% if active_nav == 'stores' or request.endpoint == 'custom_admin.stores' %}class="active"{% endif %}>Stores</a>
+                    </li>
+                    <li class="nav-item" style="margin: 0 10px;">
+                        <a href="{{ url_for('custom_admin.logout') }}"
+                             {% if active_nav == 'logout' or request.endpoint == 'custom_admin.logout' %}class="active"{% endif %}>Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
+
+        <main style="margin-top: 10px;">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer style="background-color: #333; color: #fff;">
+            <p>&copy; 2025 The Centrepoint. All rights reserved.</p>
+        </footer>
+
+        {% block scripts %}
+        <script>
+            window.addEventListener('load', function() {
+                const flashMessages = document.querySelectorAll('.flash-message');
+                // Allow click to dismiss each flash message
+                flashMessages.forEach(msg => {
+                    msg.addEventListener('click', function() {
+                        this.classList.add('fade-out');
+                    });
+                    // Remove after transition ends
+                    msg.addEventListener('transitionend', function() {
+                        this.remove();
+                    });
+                });
+                // Auto-dismiss flash messages after 3 seconds
+                setTimeout(() => {
+                    flashMessages.forEach(msg => {
+                        msg.classList.add('fade-out');
+                    });
+                }, 3000);
+            });
+        </script>
+        {% endblock %}
+    </body>
+</html>

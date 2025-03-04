@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Frasers Experience{% endblock %}
+
+{% block content %}
+<div class="home-tile-container">
+    <div class="tile-home" onclick="window.location.href='{{ url_for('web.store_directory') }}';" style="cursor: pointer; text-align: center;" {% if request.endpoint == 'web.store_directory' %}class="active"{% endif %}>
+        <span><h3>Store Directory</h3></span>
+        <p>Quickly locate your favorite stores.</p>
+    </div>
+    <div class="tile-home" onclick="window.location.href='{{ url_for('web.promotions') }}';" style="cursor: pointer; text-align: center;" {% if request.endpoint == 'web.promotions' %}class="active"{% endif %}>
+        <span><h3>Promotions</h3></span>
+        <p>Check out the latest deals and promotions.</p>
+    </div>
+    <div class="tile-home" onclick="window.location.href='{{ url_for('web.events') }}';" style="cursor: pointer; text-align: center;" {% if request.endpoint == 'web.events' %}class="active"{% endif %}>
+        <span><h3>Events</h3></span>
+        <p>Discover upcoming events at The Centrepoint.</p>
+    </div>
+    </div>
+
+    </div>
+    <!-- Additional tiles can be added below and will wrap into new rows with 3 columns each -->
+</div>
+{% endblock %}

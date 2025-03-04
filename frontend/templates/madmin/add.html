@@ -1,0 +1,165 @@
+{% extends "madmin/admin_base.html" %}
+{% set active_nav = 'add_items' %}
+{% set active_section = active_section if active_section is defined else 'store' %}
+
+{% block body %}
+<style>
+    .add-nav button.active {
+        color: blue;
+    }
+    table.inventory {
+        width: 50%;
+        border-collapse: collapse;
+        margin: 5px auto 50px auto;
+    }
+    table.inventory th, table.inventory td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+    }
+</style>
+
+<!-- Navigation buttons -->
+<div class="add-nav" style="text-align: center; margin: 20px 0;">
+    <button onclick="showSection('store', this)">Add Store</button>
+    <button onclick="showSection('promotion', this)">Add Promotion</button>
+    <button onclick="showSection('event', this)">Add Event</button>
+    <button onclick="showSection('category', this)">Add Categories</button>
+</div>
+
+<!-- All sections are rendered once at page load -->
+<div id="section-store" style="display: block;">
+    <!-- Add Store Form -->
+    <div class="add-store" style="margin: 5px auto; padding: 10px; width: 50%;">
+        <form action="{{ url_for('custom_admin.add_store') }}" method="POST" enctype="multipart/form-data" style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+            <div class="form-group" style="display: flex; flex-direction: row; gap: 10px;">
+                <div class="type-col">
+                    <label for="name">Store Name:</label>
+                    <input type="text" id="name" name="name">
+                    
+                    <!-- Dropdown for existing category -->
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="">Select a category</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.name }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                    
+                    <label for="hours">Hours:</label>
+                    <input type="text" id="hours" name="hours">
+                    
+                    <label for="promotions">Promotions:</label>
+                    <input type="checkbox" id="promotions" name="promotions_flag">
+                </div>
+                <div class="type-col">
+                    <label for="store_type">Store Type:</label>
+                    <input type="checkbox" id="store_type" name="store_type">
+                    
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description"></textarea>
+                    
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location">
+                </div>
+            </div>
+            <label for="image">Store Image:</label>
+            <div class="custom-file-input">
+                <button type="button" id="custom-button">Choose File</button>
+                <span id="file-name">No file chosen</span>
+                <input type="file" id="image" name="image" style="display: none;">
+            </div>
+            <script>
+                document.getElementById('custom-button').addEventListener('click', function(){
+                    document.getElementById('image').click();
+                });
+                document.getElementById('image').addEventListener('change', function(){
+                    var fileName = this.files.length ? this.files[0].name : 'No file chosen';
+                    document.getElementById('file-name').textContent = fileName;
+                });
+            </script>
+            <button type="submit" style="padding: 0.5em; margin-top: 10px;">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div id="section-promotion" style="display: none;">
+    <!-- Add Promotion Form -->
+    <div class="add-promotion" style="margin: 5px auto; padding: 10px; width: 50%;">
+        <form action="{{ url_for('custom_admin.add_promotion') }}" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 15px;">
+            <div class="form-group">
+                <label for="title">Promotion Title:</label>
+                <input type="text" id="title" name="title" placeholder="Enter promotion title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" placeholder="Enter promotion description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="valid_until">Valid Until:</label>
+                <input type="date" id="valid_until" name="valid_until" required>
+            </div>
+            <button type="submit" style="padding: 0.5em 1em;">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div id="section-event" style="display: none;">
+    <!-- Add Event Form -->
+    <div class="add-event" style="margin: 5px auto; padding: 10px; width: 50%;">
+        <form action="{{ url_for('custom_admin.add_event') }}" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+            <div class="form-group">
+                <label for="title">Event Title:</label>
+                <input type="text" id="title" name="title" placeholder="Enter event title" required>
+            </div>
+            <div class="form-group">
+                <label for="event_date">Event Date:</label>
+                <input type="date" id="event_date" name="event_date" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter event location" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" placeholder="Enter event description" required></textarea>
+            </div>
+            <button type="submit" style="padding: 0.5em 1em;">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div id="section-category" style="display: none;">
+    <!-- Categories Management -->
+    <div class="add-category" style="margin: 5px auto; padding: 10px; width: 50%;">
+        <form action="{{ url_for('custom_admin.categories') }}" method="POST" style="text-align: center; margin-bottom: 20px;">
+            <input type="text" id="category_name" name="name" placeholder="Enter category name" required>
+            <button type="submit">Add Category</button>
+        </form>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+    // On DOM load, call showSection using the provided (or default) active_section
+    document.addEventListener("DOMContentLoaded", function(){
+        const section = "{{ active_section }}";
+        const btn = document.querySelector('.add-nav button[onclick*="' + section + '"]');
+        if(btn){
+            showSection(section, btn);
+            btn.classList.add('active');
+        }
+    });
+
+    function showSection(section, btn) {
+        const sections = ['store', 'promotion', 'event', 'category'];
+        sections.forEach(s => {
+            document.getElementById('section-' + s).style.display = (s === section) ? 'block' : 'none';
+        });
+        // Update active button styling
+        document.querySelectorAll('.add-nav button').forEach(button => button.classList.remove('active'));
+        btn.classList.add('active');
+    }
+</script>
+{% endblock %}
+{% endblock %}

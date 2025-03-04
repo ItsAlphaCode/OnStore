@@ -1,0 +1,329 @@
+{
+    "search_data": [
+        {
+            "name": "18 Karaats",
+            "category": "Jewelry",
+            "hours": "11:30am - 8:30pm",
+            "promotions": false,
+            "store_type": false,
+            "description": "Exquisite jewelry pieces for every occasion.",
+            "location": "Level 1, Shop 101",
+            "image": "/static/images/18karaats.jpg"
+        },
+        {
+            "name": "365 Juices Bar",
+            "category": "Food & Beverage",
+            "hours": "10:00am - 10:00pm",
+            "promotions": true,
+            "store_type": false,
+            "description": "Fresh and healthy juices, smoothies, and snacks.",
+            "location": "Ground Floor, Food Court",
+            "image": "/static/images/365juices.jpg"
+        },
+        {
+            "name": "49 Seats",
+            "category": "Restaurant",
+            "hours": "11:30am - 2:00am (Mon-Sat), 11:30am - 11:30pm (Sun)",
+            "promotions": false,
+            "store_type": false,
+            "description": "Casual dining with a diverse menu.",
+            "location": "Level 2, Restaurant Area",
+            "image": "/static/images/49seats.jpg"
+        },
+        {
+            "name": "Sunny Books",
+            "category": "Books",
+            "hours": "9:00am - 7:00pm",
+            "promotions": true,
+            "store_type": false,
+            "description": "A wide selection of books, magazines, and stationery.",
+            "location": "Level 1, Shop 112",
+            "image": "/static/images/sunnybooks.jpg"
+        },
+        {
+            "name": "Green Grocers",
+            "category": "Supermarket",
+            "hours": "8:00am - 10:00pm",
+            "promotions": false,
+            "store_type": false,
+            "description": "Your one-stop shop for fresh groceries and household items.",
+            "location": "Basement Level",
+            "image": "/static/images/greengrocers.jpg"
+        },
+        {
+            "name": "Tech Hub",
+            "category": "Electronics",
+            "hours": "10:00am - 9:00pm",
+            "promotions": true,
+            "store_type": true,
+            "description": "Latest gadgets, computers, and electronic accessories.",
+            "location": "Level 2, Tech Zone",
+            "image": "/static/images/techhub.jpg"
+        },
+        {
+            "name": "Elegant Apparel",
+            "category": "Fashion",
+            "hours": "10:00am - 8:00pm",
+            "promotions": true,
+            "store_type": true,
+            "description": "Stylish clothing and accessories for all occasions.",
+            "location": "Level 1, Fashion Avenue",
+            "image": "/static/images/elegantapparel.jpg"
+        },
+        {
+            "name": "Fitness First",
+            "category": "Gym",
+            "hours": "6:00am - 10:00pm",
+            "promotions": false,
+            "store_type": false,
+            "description": "State-of-the-art gym with fitness classes and personal training.",
+            "location": "Level 3, Fitness Center",
+            "image": "/static/images/fitnessfirst.jpg"
+        },
+        {
+            "name": "Brewed Awakening",
+            "category": "Café",
+            "hours": "7:00am - 8:00pm",
+            "promotions": true,
+            "store_type": false,
+            "description": "Cozy café serving specialty coffee, tea, and pastries.",
+            "location": "Ground Floor, near Entrance",
+            "image": "/static/images/brewedawakening.jpg"
+        },
+        {
+            "name": "Artistic Walls",
+            "category": "Art Gallery",
+            "hours": "11:00am - 6:00pm",
+            "promotions": false,
+            "store_type": false,
+            "description": "Contemporary art gallery showcasing local and international artists.",
+            "location": "Level 2, Art Gallery",
+            "image": "/static/images/artisticwalls.jpg"
+        },
+        {
+            "name": "Travel Mate",
+            "category": "Travel Agency",
+            "hours": "9:00am - 5:00pm",
+            "promotions": true,
+            "store_type": false,
+            "description": "Plan your dream vacation with our expert travel agents.",
+            "location": "Level 1, Travel Services",
+            "image": "/static/images/travelmate.jpg"
+        },
+        {
+            "name": "Pet Paradise",
+            "category": "Pet Store",
+            "hours": "10:00am - 8:00pm",
+            "promotions": false,
+            "store_type": false,
+            "description": "Everything you need for your furry friends.",
+            "location": "Level 1, Pet Zone",
+            "image": "/static/images/petparadise.jpg"
+        },
+        {
+            "name": "Music Mania",
+            "category": "Music Store",
+            "hours": "10:00am - 8:00pm",
+            "promotions": true,
+            "store_type": false,
+            "description": "Instruments, CDs, vinyl, and music accessories.",
+            "location": "Level 2, Music Corner",
+            "image": "/static/images/musicmania.jpg"
+        },
+        {
+            "name": "Glamour Boutique",
+            "category": "Fashion",
+            "hours": "10:00am - 8:00pm",
+            "promotions": true,
+            "store_type": true,
+            "description": "High-end fashion boutique with designer brands.",
+            "location": "Level 1, Luxury Section",
+            "image": "/static/images/glamourboutique.jpg"
+        },
+        {
+            "name": "Taste Buds",
+            "category": "Food & Beverage",
+            "hours": "11:00am - 9:00pm",
+            "promotions": false,
+            "store_type": false,
+            "description": "Gourmet food and beverage selections.",
+            "location": "Ground Floor, Specialty Foods",
+            "image": "/static/images/tastebuds.jpg"
+        },
+        {
+            "name": "Cinema World",
+            "category": "Entertainment",
+            "hours": "10:00am - 11:00pm",
+            "promotions": true,
+            "store_type": false,
+            "description": "Multi-screen cinema showing the latest movies.",
+            "location": "Level 3, Entertainment Zone",
+            "image": "/static/images/cinemaworld.jpg"
+        },
+        {
+            "name": "Fit Life",
+            "category": "Lifestyle",
+            "hours": "6:00am - 10:00pm",
+            "promotions": false,
+            "store_type": false,
+            "description": "Fitness apparel, equipment, and supplements.",
+            "location": "Level 2, Lifestyle Section",
+            "image": "/static/images/fitlife.jpg"
+        },
+        {
+            "name": "Digital Dreams",
+            "category": "Electronics",
+            "hours": "10:00am - 9:00pm",
+            "promotions": true,
+            "store_type": true,
+            "description": "Innovative tech gadgets and devices.",
+            "location": "Level 2, Tech Zone",
+            "image": "/static/images/digitaldreams.jpg"
+        },
+        {
+            "name": "Urban Vogue",
+            "category": "Fashion",
+            "hours": "10:00am - 8:00pm",
+            "promotions": false,
+            "store_type": false,
+            "description": "Trendy urban fashion and streetwear.",
+            "location": "Level 1, Fashion Avenue",
+            "image": "/static/images/urbanvogue.jpg"
+        },
+        {
+            "name": "Gourmet Hub",
+            "category": "Food & Beverage",
+            "hours": "11:00am - 9:00pm",
+            "promotions": true,
+            "store_type": false,
+            "description": "Gourmet food court with diverse culinary options.",
+            "location": "Ground Floor, Food Court",
+            "image": "/static/images/gourmethub.jpg"
+        },
+        {
+            "name": "Stage Lights",
+            "category": "Entertainment",
+            "hours": "7:00pm - 11:00pm (Show Times Vary)",
+            "promotions": false,
+            "store_type": false,
+            "description": "Live theater and performance venue.",
+            "location": "Level 3, Entertainment Zone",
+            "image": "/static/images/stagelights.jpg"
+        }
+    ],
+    "store_directory": {
+        "all": [
+            { "name": "18 Karaats", "category": "Jewelry", "location": "Level 1, #01-22", "description": "Elegant and timeless jewelry pieces." }, 
+            { "name": "XYZ Electronics", "category": "Electronics", "location": "Level 2, Tech Bay", "description": "Latest gadgets and innovative electronics." },
+            { "name": "Happy Home", "category": "Home Decor", "location": "Level 3, Interior Space", "description": "Beautifully curated home decor collections." },
+            { "name": "Fresh Bites", "category": "Food & Beverage", "location": "Ground Floor, Dine Street", "description": "Delicious and healthy cuisine options." },
+            { "name": "Glamour Boutique", "category": "Fashion", "location": "Level 1, Chic Corner", "description": "High-end fashion and designer brands." },
+            { "name": "Taste Buds", "category": "Food & Beverage", "location": "Ground Floor, Culinary Row", "description": "Exquisite flavors and gourmet delights." },
+            { "name": "Cinema World", "category": "Entertainment", "location": "Level 3, Movie Plaza", "description": "Experience blockbuster movies in style." },
+            { "name": "Fit Life", "category": "Lifestyle", "location": "Level 2, Fitness Zone", "description": "Top-quality fitness equipment and apparel." },
+            { "name": "Digital Dreams", "category": "Electronics", "location": "Level 2, Innovation Hub", "description": "Cutting-edge technology and modern devices." },
+            { "name": "Urban Vogue", "category": "Fashion", "location": "Level 1, Style Street", "description": "Trendy urban fashion and streetwear collections." },
+            { "name": "Gourmet Hub", "category": "Food & Beverage", "location": "Ground Floor, Dining Arcade", "description": "A variety of gourmet food options to explore." },
+            { "name": "Stage Lights", "category": "Entertainment", "location": "Level 3, Performance Hall", "description": "Live performances and theatrical experiences." },
+            { "name": "Zen Living", "category": "Lifestyle", "location": "Level 2, Serenity Spot", "description": "Products focused on wellness and balanced living." },
+            { "name": "Tech Corner", "category": "Electronics", "location": "Level 2, Gadget Grove", "description": "Specialized electronics and tech accessories." }
+        ],
+        "fashion": [
+            { "name": "ABC Fashion", "category": "Fashion", "location": "Level 1, Fashion Hub", "description": "Exclusive trendy clothing for modern tastes." },
+            { "name": "Glamour Boutique", "category": "Fashion", "location": "Level 1, Chic Corner", "description": "High-end fashion and designer brands." },
+            { "name": "Urban Vogue", "category": "Fashion", "location": "Level 1, Style Street", "description": "Trendy urban fashion and streetwear collections." },
+            { "name": "Style Hub", "category": "Fashion", "location": "Level 2, Fashion District", "description": "Sleek and modern fashion trends." },
+            { "name": "Chic Avenue", "category": "Fashion", "location": "Level 1, Boutique Row", "description": "Elegant fashion for discerning buyers." },
+            { "name": "Fashion Forward", "category": "Fashion", "location": "Level 2, Trend Zone", "description": "Innovative and contemporary fashion pieces." },
+            { "name": "Trendy Threads", "category": "Fashion", "location": "Level 1, Style Street", "description": "Casual yet chic lifestyle clothing." },
+            { "name": "Couture Corner", "category": "Fashion", "location": "Level 1, Designer Wing", "description": "Exclusive couture collections." },
+            { "name": "Elegance Emporium", "category": "Fashion", "location": "Level 2, Luxe Hall", "description": "Sophisticated and timeless designs." },
+            { "name": "Runway Ready", "category": "Fashion", "location": "Level 1, Fashion Court", "description": "Style that shines on and off the runway." },
+            { "name": "Vogue Vista", "category": "Fashion", "location": "Level 1, Style Avenue", "description": "Fashion that makes a bold statement." }
+        ],
+        "food and beverage": [
+            { "name": "Fresh Bites", "category": "Food & Beverage", "location": "Ground Floor, Dine Street", "description": "Delicious and healthy cuisine options." },
+            { "name": "Taste Buds", "category": "Food & Beverage", "location": "Ground Floor, Culinary Row", "description": "Exquisite flavors and gourmet delights." },
+            { "name": "Gourmet Hub", "category": "Food & Beverage", "location": "Ground Floor, Dining Arcade", "description": "A variety of gourmet food options to explore." },
+            { "name": "Culinary Delights", "category": "Food & Beverage", "location": "Ground Floor, Food Court", "description": "Ground Floor, Food Court" },
+            { "name": "Savory Spot", "category": "Food & Beverage", "location": "Ground Floor, Snack Street", "description": "Tasty treats and quick bites." },
+            { "name": "Bistro Bliss", "category": "Food & Beverage", "location": "Ground Floor, Bistro Lane", "description": "Cozy and welcoming dining experience." },
+            { "name": "Dining Dynasty", "category": "Food & Beverage", "location": "Level 2, Restaurant Area", "description": "Elegant and diverse culinary selections." },
+            { "name": "Snack Shack", "category": "Food & Beverage", "location": "Ground Floor, Quick Bite Corner", "description": "Great snacks on the go." },
+            { "name": "Meal Mart", "category": "Food & Beverage", "location": "Basement Level, Food Mart", "description": "A wide range of meal options." },
+            { "name": "Cuisine Corner", "category": "Food & Beverage", "location": "Ground Floor, Culinary Court", "description": "Experience fine dining and local favorites." },
+            { "name": "Feast Factory", "category": "Food & Beverage", "location": "Ground Floor, Dining Plaza", "description": "Generous portions of gourmet delights." }
+        ],
+        "entertainment": [
+            { "name": "Cinema World", "category": "Entertainment", "location": "Level 3, Movie Plaza", "description": "Experience blockbuster movies in style." },
+            { "name": "Stage Lights", "category": "Entertainment", "location": "Level 3, Performance Hall", "description": "Live performances and theatrical experiences." },
+            { "name": "Fun Zone", "category": "Entertainment", "location": "Level 2, Entertainment District", "description": "Fun activities and games for all ages." },
+            { "name": "Playhouse Plaza", "category": "Entertainment", "location": "Level 3, Theater Row", "description": "Elegant plays and dramatic performances." },
+            { "name": "Music Mania", "category": "Entertainment", "location": "Level 2, Music Corner", "description": "A hub of musical instruments and accessories." },
+            { "name": "Comedy Central", "category": "Entertainment", "location": "Level 2, Laughter Lane", "description": "Stand-up shows and improv nights." },
+            { "name": "Party Point", "category": "Entertainment", "location": "Level 1, Celebration Corner", "description": "Dance floors and party ambiance." },
+            { "name": "Amusement Arena", "category": "Entertainment", "location": "Level 3, Game Zone", "description": "Thrilling rides and arcade fun." },
+            { "name": "Game Galaxy", "category": "Entertainment", "location": "Level 2, Arcade Alley", "description": "Interactive games and endless fun." },
+            { "name": "Event Horizon", "category": "Entertainment", "location": "Level 3, Concert Court", "description": "A convergence of live music and events." }
+        ],
+        "lifestyle": [
+            { "name": "Fit Life", "category": "Lifestyle", "location": "Level 2, Fitness Zone", "description": "Top-quality fitness equipment and apparel." },
+            { "name": "Zen Living", "category": "Lifestyle", "location": "Level 2, Serenity Spot", "description": "Products focused on wellness and balanced living." },
+            { "name": "Urban Vitality", "category": "Lifestyle", "location": "Level 1, Wellness Center", "description": "Vibrant health and active living solutions." },
+            { "name": "Eco Chic", "category": "Lifestyle", "location": "Level 1, Green Corner", "description": "Sustainable and stylish lifestyle choices." },
+            { "name": "Wellness World", "category": "Lifestyle", "location": "Level 2, Health Hub", "description": "Comprehensive wellness and lifestyle products." },
+            { "name": "Bloom & Thrive", "category": "Lifestyle", "location": "Level 1, Growth Lane", "description": "Nurturing beauty and overall wellness." },
+            { "name": "Vibrant Living", "category": "Lifestyle", "location": "Level 2, Lifestyle Section", "description": "Dynamic products for modern living." },
+            { "name": "Lifestyle Lounge", "category": "Lifestyle", "location": "Level 1, Relaxation Row", "description": "Comfort and style for everyday life." },
+            { "name": "Soul Style", "category": "Lifestyle", "location": "Level 2, Harmony Hub", "description": "Where fashion meets comfort." },
+            { "name": "Pure Living", "category": "Lifestyle", "location": "Level 1, Purity Plaza", "description": "Clean and natural lifestyle inspirations." }
+        ],
+        "electronics": [
+            { "name": "XYZ Electronics", "category": "Electronics", "location": "Level 2, Tech Bay", "description": "Latest gadgets and innovative electronics." },
+            { "name": "Digital Dreams", "category": "Electronics", "location": "Level 2, Innovation Hub", "description": "Cutting-edge technology and modern devices." },
+            { "name": "Tech Corner", "category": "Electronics", "location": "Level 2, Gadget Grove", "description": "Specialized electronics and tech accessories." },
+            { "name": "Gadget Galaxy", "category": "Electronics", "location": "Level 2, Device Domain", "description": "A wide selection of electronic widgets." },
+            { "name": "Electronic Emporium", "category": "Electronics", "location": "Level 2, Circuit Center", "description": "Everything electronic you need." },
+            { "name": "Circuit City", "category": "Electronics", "location": "Level 2, Tech Town", "description": "Innovative solutions in electronics." },
+            { "name": "Smart Solutions", "category": "Electronics", "location": "Level 2, Innovation Hub", "description": "Smart gadgets and home devices." },
+            { "name": "Tech Trends", "category": "Electronics", "location": "Level 2, Trend Zone", "description": "Latest in electronic innovations." },
+            { "name": "Innovatech", "category": "Electronics", "location": "Level 2, Technology Square", "description": "Technologically advanced products." },
+            { "name": "Gear Grid", "category": "Electronics", "location": "Level 2, Gadget Grid", "description": "Essential electronics for modern life." },
+            { "name": "NextGen Electronics", "category": "Electronics", "location": "Level 2, Future Tech", "description": "Next generation electronic solutions." }
+        ]
+    },
+    "promotions": [
+        { "title": "Summer Sale", "description": "Get 20% off on all items", "valid_until": "31 Aug 2024" },
+        { "title": "Happy Hour", "description": "Buy 1 get 1 free on selected drinks", "valid_until": "15 Sep 2024" },
+        { "title": "Back to School", "description": "Discounts for school supplies", "valid_until": "30 Sep 2024" },
+        { "title": "Holiday Special", "description": "Exclusive deals in December", "valid_until": "31 Oct 2024" },
+        { "title": "Weekend Bonanza", "description": "Special weekend offers", "valid_until": "15 Nov 2024" },
+        { "title": "Flash Sale", "description": "Limited time offers", "valid_until": "30 Nov 2024" },
+        { "title": "Mid-Year Madness", "description": "Up to 50% off", "valid_until": "15 Dec 2024" },
+        { "title": "Clearance Event", "description": "Everything must go!", "valid_until": "31 Dec 2024" },
+        { "title": "Buy More Save More", "description": "Discounts on bulk purchases", "valid_until": "15 Jan 2025" },
+        { "title": "Member Exclusive", "description": "Special deals for members", "valid_until": "28 Feb 2025" },
+        { "title": "Festive Discounts", "description": "Deals celebrating the season", "valid_until": "31 Mar 2025" },
+        { "title": "Anniversary Special", "description": "Exclusive anniversary deals", "valid_until": "30 Apr 2025" },
+        { "title": "Weekend Special", "description": "Offers valid during weekends", "valid_until": "31 May 2025" },
+        { "title": "Early Bird Offer", "description": "Discounts for early shoppers", "valid_until": "30 Jun 2025" },
+        { "title": "Night Owl Discount", "description": "Deals for late-night shopping", "valid_until": "31 Jul 2025" }
+    ],
+    "events": [
+        { "title": "Live Music", "date": "July 15th", "event_location": "Open Air Stage", "event_description": "An enchanting evening with local bands." },
+        { "title": "Fashion Show", "date": "August 1st", "event_location": "Fashion Runway", "event_description": "Experience cutting-edge designs on display." },
+        { "title": "Food Festival", "date": "September 10th", "event_location": "Gourmet Park", "event_description": "Taste a variety of cuisine from around the globe." },
+        { "title": "Art Exhibition", "date": "October 5th", "event_location": "Modern Art Gallery", "event_description": "A showcase of contemporary and classic art pieces." },
+        { "title": "Tech Meetup", "date": "November 20th", "event_location": "Innovation Hub", "event_description": "Discuss the latest trends in technology and startups." },
+        { "title": "Book Fair", "date": "December 2nd", "event_location": "Literature Lane", "event_description": "Explore a vast collection of books and meet your favorite authors." },
+        { "title": "Cultural Fest", "date": "January 10th", "event_location": "Cultural Square", "event_description": "Celebrate diverse traditions and artistic expressions." },
+        { "title": "Startup Pitch", "date": "February 20th", "event_location": "Entrepreneur Arena", "event_description": "Witness innovative ideas and dynamic business pitches." },
+        { "title": "Charity Ball", "date": "March 15th", "event_location": "Charity Hall", "event_description": "A glamorous evening event supporting noble causes." },
+        { "title": "Retro Night", "date": "April 25th", "event_location": "Vintage Venue", "event_description": "Travel back in time with retro music and classic styles." },
+        { "title": "Innovation Expo", "date": "May 5th", "event_location": "Tech Pavilion", "event_description": "Discover groundbreaking technologies and inventive solutions." },
+        { "title": "Marathon", "date": "June 18th", "event_location": "Marathon Grounds", "event_description": "Join a community run promoting health and unity." },
+        { "title": "Food Carnival", "date": "July 22nd", "event_location": "Food Plaza", "event_description": "Delight in a vibrant street food celebration." },
+        { "title": "Outdoor Concert", "date": "August 30th", "event_location": "Concert Arena", "event_description": "Enjoy live outdoor performances under the stars." },
+        { "title": "Tech Carnival", "date": "September 15th", "event_location": "Innovation Center", "event_description": "Experience an interactive showcase of the latest tech trends." }
+    ]
+}

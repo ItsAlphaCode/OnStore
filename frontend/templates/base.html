@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Frasers Experience{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Add Font Awesome for the filter icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% block extra_css %}
+    <style>
+        .main-navigation a {
+            color: #fff;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+    <div class="fixed-top">
+        <header style="background-color: #333; color: #fff;">
+            <div class="header-container">
+                <!-- Left section -->
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Frasers Experience Logo">
+                    </div>
+                </div>
+                
+                <!-- Center section -->
+                <div class="header-center">
+                    <div class="basic-search">
+                        <input type="text" id="home-search-input" placeholder="Search Stores, Products, and Promotions" value="{{ request.args.get('search', '') }}">
+                        <button id="home-search-button">Search</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Modified nav bar background color to grey -->
+        <nav class="main-navigation" style="background-color: rgba(68, 68, 68, 1);">
+            <li class="home-content" style="margin: 0 10px;">
+                <a href="{{ url_for('web.home') }}" {% if request.endpoint == 'web.home' %}class="active"{% endif %}>Home</a>
+            </li>
+            {% if categories %}
+                <li class="store-content dropdown" style="margin: 0 10px;">
+                    <a href="{{ url_for('web.store_directory') }}" {% if request.endpoint == 'web.store_directory' %}class="active"{% endif %}>Store Directory</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('web.store_directory') }}#All" style="color: black;">All</a>
+                        {% for category in categories %}
+                            <a href="{{ url_for('web.store_directory') }}#{{ category.name | replace(' ', '_') }}" style="color: black;">{{ category.name | title }}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+            {% else %}
+                <li class="store-content" style="margin: 0 10px;">
+                    <a href="{{ url_for('web.store_directory') }}" {% if request.endpoint == 'web.store_directory' %}class="active"{% endif %}>Store Directory</a>
+                </li>
+            {% endif %}
+            <li class="promotions-content" style="margin: 0 10px;">
+                <a href="{{ url_for('web.promotions') }}" {% if request.endpoint == 'web.promotions' %}class="active"{% endif %}>Promotions</a>
+            </li>
+            <li class="events-content" style="margin: 0 10px;">
+                <a href="{{ url_for('web.events') }}" {% if request.endpoint == 'web.events' %}class="active"{% endif %}>Events</a>
+                <li class="dropdown" style="display: inline-block;">
+                    <a href="#">More</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('web.about') }}" style="color: black;">About Us</a>
+                        <a href="{{ url_for('web.careers') }}" style="color: black;">Careers</a>
+                        <a href="{{ url_for('web.parking') }}" style="color: black;">Parking Info</a>
+                        <a href="{{ url_for('web.contact') }}" style="color: black;">Contact Us</a>
+                    </div>
+                </li>
+            </li>
+        </nav>
+    </div>
+    <main style="margin-top: 10px;">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer style="background-color: #333; color: #fff;">
+        <p>&copy; 2025 The Centrepoint. All rights reserved.</p>
+    </footer>
+
+    {% block scripts %}
+    <!-- If no scripts in parent, this block can be empty -->
+    {% endblock %}
+    <script>
+        window.addEventListener('load', function() {
+            const searchInput = document.getElementById('home-search-input');
+            const searchButton = document.getElementById('home-search-button');
+            if (searchInput && searchButton) {
+                const performSearch = () => {
+                    const query = searchInput.value;
+                    if (query.trim() !== "") {
+                        const encodedQuery = encodeURIComponent(query);
+                        window.location.href = "{{ url_for('web.search_results') }}" + "?search=" + encodedQuery;
+                    } else {
+                        alert("Please enter a search term.");
+                    }
+                };
+                searchButton.addEventListener('click', performSearch);
+                searchInput.addEventListener('keydown', (e) => {
+                    if (e.key === "Enter") {
+                        e.preventDefault();
+                        performSearch();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

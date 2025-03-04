@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Debug: Total stores in All: {{ all_stores|length }} -->
+<section class="store-directory">
+    <div id="All" class="category-section" style="margin-top: 0;">
+        <h3 style="font-weight: normal; font-size: 18px;">All</h3>
+        <div class="store-layout" style="display: grid; grid-template-columns: repeat(4, 1fr); justify-content: center;">
+            {% for store in all_stores %}
+                {% set img = store.image_path %}
+                {% if img and img.startswith('static/') %}
+                    {% set img = img[7:] %}
+                {% endif %}
+                <div class="card-layout">
+                    <div class="store-card-img" style="
+                        background-image: url('{{ url_for('static', filename=img if img else 'images/default.jpg') }}');
+                        ">
+                    </div>
+                    <div class="store-card-text">
+                            <p style="margin: 0; font-size: 14px; word-wrap: break-word;">
+                                {{ store.name }}. {{ store.location }}. {{ store.description }}
+                            </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% for category in categories %}
+        {% if category.stores|length > 0 %}
+        <div id="{{ category.name | replace(' ', '_') }}" class="category-section">
+            <h3 style="font-weight: normal; font-size: 18px;">{{ category.name | title }}</h3>
+            <div class="store-layout">
+                {% for store in category.stores %}
+                    {% set img = store.image_path %}
+                    {% if img and img.startswith('static/') %}
+                        {% set img = img[7:] %}
+                    {% endif %}
+                    <div class="card-layout">
+                        <div class="store-card-img" style="
+                            background-image: url('{{ url_for('static', filename=img if img else 'images/default.jpg') }}');
+                            ">
+                        </div>
+                        <div class="store-card-text">
+                            <p style="margin: 0; font-size: 14px; word-wrap: break-word;">
+                                {{ store.name }}. {{ store.location }}. {{ store.description }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+    if(window.location.hash) {
+        var target = document.getElementById(window.location.hash.substring(1));
+        if(target) {
+            target.scrollIntoView({ behavior: "smooth" });
+        }
+    }
+});
+</script>
+{% endblock %}

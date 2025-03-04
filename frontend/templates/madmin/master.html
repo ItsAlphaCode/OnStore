@@ -1,0 +1,21 @@
+{% extends "madmin/admin_base.html" %}
+
+{% block content %}
+<div class="home-tile-container">
+    <div class="tile-home" onclick="window.location.href='{{ url_for('custom_admin.add_store') }}';" style="cursor: pointer; text-align: center;">
+        <p>Add a new product to the store.</p>
+    </div>
+    <div class="tile-home" onclick="window.location.href='{{ url_for('custom_admin.index') }}';" style="cursor: pointer; text-align: center;">
+        <p>View and manage all products.</p>
+    </div>
+    <div class="tile-home" onclick="window.location.href='{{ url_for('custom_admin.index') }}';" style="cursor: pointer; text-align: center;">
+        <p>View and manage all categories.</p>
+    </div>
+    <div class="tile-home" onclick="window.location.href='{{ url_for('custom_admin.index') }}';" style="cursor: pointer; text-align: center;">
+        <p>View and manage all orders.</p>
+    </div>
+    <div class="tile-home" onclick="window.location.href='{{ url_for('custom_admin.index') }}';" style="cursor: pointer; text-align: center;">
+        <p>View and manage all users.</p>
+    </div>
+</div>
+{% endblock %}

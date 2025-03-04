@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Frasers Experience - Promotions{% endblock %}
+
+{% block navigation %}
+// ...existing navigation...
+{% endblock %}
+
+{% block content %}
+<section class="promotions">
+    <div class= "store-layout">
+        {% if active_promotions %}
+            {% for promo in active_promotions %}
+                <div class="card-layout">
+                    <div class="store-card-img" style="background-image: url('{{ url_for('static', filename=img if img else 'images/promo_default.jpg') }}');">
+                    </div>
+                    <div class="store-card-text">
+                        <p style="margin: 0; font-size: 14px; word-wrap: break-word;">
+                            {{ promo.title }}. {{ promo.description }}. Valid until: {{ promo.valid_until.strftime('%Y-%m-%d') }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center;">No active promotions found.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Any promotions page specific scripts if needed
+</script>
+{% endblock %}

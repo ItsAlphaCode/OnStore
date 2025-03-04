@@ -1,0 +1,627 @@
+/* Basic Reset and Box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    line-height: 1.6;
+    color: #333; /* Dark gray text */
+}
+
+/* Header Styles */
+header {
+    background-color: #f0f0f0; /* Light gray */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    max-height: 50px; /* Adjust as needed */
+}
+
+/* Home Page Search Styles */
+.basic-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.basic-search input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+.basic-search button {
+    padding: 8px 12px;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.search-tile-container {
+    width: 100%; 
+    display: flex; 
+    flex-direction: row;
+
+}
+
+.search-results-text-container {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    width: 50%; 
+    height: 100%;
+}
+
+.filter-btn {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    width: 50%; 
+    height: 100%;
+}
+
+.filter-button {
+    position: relative;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+}
+
+.filter-button:hover {
+    background-color: #e8e8e8;
+}
+
+.filter-button:hover::after {
+    content: "Advanced Search";
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.filter-button span {
+    text-decoration: none;
+}
+
+
+.filter-button:hover .filter-dropdown {
+    display: block;
+}
+
+.filter-text {
+    cursor: pointer;
+    position: relative;
+    margin-left: 10px; /* Space between text and Filters */
+}
+
+.filter-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 10px;
+}
+
+/* Show dropdown only when hovering over the Filters text */
+.filter-text:hover + .filter-dropdown,
+.filter-dropdown:hover {
+    display: block;
+}
+
+/* Show Advanced Search tooltip only for filter icon */
+.filter-link {
+    position: relative;
+}
+
+.filter-link:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+
+.search-results {
+    padding: 20px;
+}
+
+.search-results h2 {
+    font-weight: normal; /* Make text not bold */
+    font-size: 1em; /* Set text size to regular */
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Vertically center items */
+    margin-bottom: 10px;
+}
+
+.store-entry {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.store-entry h3 {
+    margin-bottom: 5px;
+}
+
+.store-entry p {
+    margin-bottom: 5px;
+}
+
+/* Navigation Styles */
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin-left: 20px;
+    position: relative; /* For dropdown positioning */
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    display: block; /* Important for dropdown to work correctly */
+}
+
+/* Dropdown Styles */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+nav li:hover .dropdown-content {
+    display: block;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding: 1rem 2rem;
+    width: 100%;
+    max-width: 1400px;  /* Optional: limits maximum width */
+    margin: 0 auto;     /* Optional: centers the container */
+}
+
+/* Left section */
+.header-left {
+    flex: 1;  /* Takes up 1 part of the space */
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Center section */
+.header-center {
+    flex: 2;  /* Takes up 2 parts of the space */
+    display: flex;
+    justify-content: flex-start;
+}
+
+
+/* Update the logo styles */
+.logo {
+    padding-right: 1rem;
+}
+
+.logo img {
+    max-height: 50px;
+    width: auto;
+}
+
+.fixed-top {
+    display: flex; 
+    flex-direction: column; 
+    height: 30%;
+}
+
+.admin-nav {
+    display: flex; 
+    background-color: #333; 
+    color: #fff; display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 70px; 
+    align-items: center;
+}
+
+/* Update the search styles */
+.basic-search {
+    width: 100%;
+    max-width: 500px;  /* Adjust this value as needed */
+    display: flex;
+    gap: 0.5rem;
+}
+
+.basic-search input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: 200px;
+}
+
+.basic-search button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.basic-search button:hover {
+    background-color: #0056b3;
+}
+
+
+
+.main-navigation {
+    display: flex;
+    background-color: #f8f8f8;
+    /* align-items: center; */
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+    justify-content: center; 
+    align-items: center; 
+    list-style: none; 
+    padding: 10px; 
+    margin: 0;
+}
+
+.main-navigation ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.main-navigation a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+}
+
+.main-navigation a.active {
+    color: #007bff;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 0.75rem 1rem;
+}
+
+.dropdown-content a:hover {
+    background-color: #f8f8f8;
+}
+
+/* Store Directory Styles */
+.store-directory {
+    padding: 2rem;
+}
+
+.category-section {
+    margin-bottom: 3rem;
+}
+
+.store-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.card-layout {
+    padding: 1.5rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: white;
+}
+
+/* Promotions Styles */
+.promotions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.category-section {
+    display: flex; 
+    flex-direction: column; 
+    width: 100%; 
+    margin-top: 0;
+}
+
+.card-layout {
+    display: flex; 
+    flex-direction: column;
+    gap: 10px; 
+    width: 300px;
+}
+
+
+.store-card-img {
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #ccc; 
+    height: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+
+.store-layout {
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    justify-content: center;
+}
+
+.store-directory {
+    display: flex; 
+    flex-direction: column; 
+    align-items: left; 
+    margin-top: 0;
+}
+
+.store-card-text {
+    color: #000;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.card-layout:hover {
+    background-color: #f0f8ff; /* Change to a light blue tint */
+    border-color: #ccc;
+}
+
+/* Events Styles */
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 40px;
+    justify-content: center;
+}
+
+.event-card {
+    border: 1px solid #d2d1d1;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    gap: 10px;
+    overflow: hidden;
+    background: white;
+    padding: 20px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+    align-items: start;
+}
+
+.event-card:hover {
+    background-color: #f0f8ff; /* Change to a light blue tint */
+    border-color: #ccc;
+}
+
+.event-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.event-content {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.date, .location {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.tile-container {
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Wrap tiles to next row if needed */
+    flex-direction: row;
+    gap: 20px; 
+    align-items: center;
+    justify-content: center;
+    /* padding: 40px; padding around the container */
+}
+
+.home-tile-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px; 
+    padding: 40px;
+    gap: 20px; /* space between tiles */
+    justify-content: center;
+}
+.type-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    justify-content: space-between;
+    gap: 30px;
+
+}
+.type-col1 {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr); 
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.type {
+    display: flex; 
+    flex-wrap: wrap; 
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.tile-home {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* arrange tiles in a column */
+    background-color: #f8f8f8; /* Light background color */
+    border: 1px solid #ccc; /* Border around each tile */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: center; /* Align text inside tiles */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    justify-content: center; /* center contents horizontally */
+    padding: 20px; /* padding inside each tile */
+    min-height: 200px;
+    
+}
+
+.tile-home:hover {
+    background-color: #f0f8ff; /* Change to a light blue tint */
+    border-color: #ccc;
+}
+
+.tile {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange tiles in a column */
+    justify-content: center; /* Center content vertically */
+    background-color: #f8f8f8; /* Light background color */
+    border: 1px solid #ccc; /* Border around each tile */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside each tile */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    flex: 1 1 75%; /* tile takes 75% of full width */
+    max-width: 50%; /* Ensure tile does not exceed 75% of container width */
+    text-align: left; /* Align text inside tiles */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    min-height: 50px; /* Set a minimum height for the tiles */
+}
+
+
+
+
+.tile h2 {
+    margin-bottom: 10px; /* Space between heading and paragraph */
+    font-size: 1.5em; /* Larger font size for headings */
+}
+
+.tile p {
+    font-size: 1em; /* Standard font size for paragraphs */
+    color: #555; /* Slightly darker text color for contrast */
+}
+
+.filter-icon {
+    margin-left: 10px; /* Space between text and icon */
+    cursor: pointer; /* Indicate that the icon is interactive */
+    font-size: 0.9em; /* Reduce icon size */
+    color: #333; /* Icon color */
+    vertical-align: middle; /* Align icon with text */
+    position: relative; /* Position relative for dropdown */
+}
+
+.filter-icon:hover {
+    color: #007bff; /* Change color on hover for visual feedback */
+}
+
+/* Dropdown menu styles */
+.filter-dropdown {
+    display: none; /* Initially hidden */
+    position: absolute; /* Position it absolutely */
+    background-color: #fff; /* Background color */
+    border: 1px solid #ccc; /* Border around dropdown */
+    z-index: 1; /* Ensure it appears above other elements */
+    top: 100%; /* Position below the icon */
+    left: 0; /* Align to the left */
+    min-width: 160px; /* Minimum width */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    padding: 10px; /* Padding inside dropdown */
+}
+
+/* Show dropdown on hover over the filter icon */
+.filter-icon:hover + .filter-dropdown {
+    display: block; /* Show dropdown */
+}

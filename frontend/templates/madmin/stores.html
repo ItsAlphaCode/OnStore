@@ -1,0 +1,554 @@
+{% extends "madmin/admin_base.html" %}
+{% block header_title %}Stores{% endblock %}
+{% block body %}
+  <style>
+    /* Set edit and delete icons to black */
+    .action-icons .edit-icon i, 
+    .action-icons .delete-icon i {
+      color: black;
+      transition: color 0.3s;
+    }
+    .action-icons .edit-icon i:hover, .action-icons .delete-icon i:hover {
+      color: blue;
+    }
+    /* Modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 20px;
+      z-index: 300;
+      width: 300px;
+    }
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 200;
+    }
+  </style>
+
+  <h1 style="text-align: center; font-size: 15px; margin-top: 10px;">Stores</h1>
+<!-- Existing Stores Table -->
+<div class="stores-table" style="margin: 10px auto 50px auto; padding: 20px; width:90%;">
+    <table border="1" style="width:100%; border-collapse:collapse; margin-bottom: 100px;">
+        <thead>
+        <tr>
+          <th>Store Name</th>
+          <th>Category</th>
+          <th>Hours</th>
+          <th>Promotion Enabled</th>
+          <th>Store Type</th>
+          <th>Description</th>
+          <th>Location</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if stores %}
+          {% for store in stores %}
+            <tr data-store-id="{{ store.id }}">
+              <td>{{ store.name }}</td>
+              <td>{{ store.category.name if store.category else 'N/A' }}</td>
+              <td>{{ store.hours }}</td>
+              <td>{% if store.promotions_flag %}Yes{% else %}No{% endif %}</td>
+              <td>{% if store.store_type %}Yes{% else %}No{% endif %}</td>
+              <td title="{{ store.description }}">{{ store.description|truncate(50) }}</td>
+              <td>{{ store.location }}</td>
+              <td>
+                {% if store.image_path %}
+                  <img src="{{ store.image_path }}" alt="{{ store.name }}" style="max-width:100px;">
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+              <td style="text-align: center;">
+                <div class="action-icons" style="display: inline-block;">
+                  <a href="{{ url_for('custom_admin.edit_store', store_id=store.id) }}" class="edit-icon" style="margin-right: 10px;"><i class="fas fa-edit"></i></a>
+                  <a href="{{ url_for('custom_admin.delete_store', store_id=store.id) }}" class="delete-icon"><i class="fas fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="9" style="text-align:center;">No stores available.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Promotions Table -->
+  <h2 style="text-align:center; margin-top:30px;">Promotions</h2>
+  <div class="promotions-table" style="margin: 10px auto; padding: 20px; width:90%;">
+    <table border="1" style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Valid Until</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if promotions %}
+          {% for promo in promotions %}
+            <tr data-promo-id="{{ promo.id }}">
+              <td>{{ promo.title }}</td>
+              <td>{{ promo.description }}</td>
+              <td>{{ promo.valid_until.strftime('%Y-%m-%d') }}</td>
+              <td style="text-align: center;">
+                <div class="action-icons" style="display: inline-block;">
+                  <a href="{{ url_for('custom_admin.edit_promotion', promotion_id=promo.id) }}" class="edit-icon" style="margin-right: 10px;"><i class="fas fa-edit"></i></a>
+                  <a href="{{ url_for('custom_admin.delete_promotion', promotion_id=promo.id) }}" class="delete-icon"><i class="fas fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="4" style="text-align:center;">No promotions available.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Events Table -->
+  <h2 style="text-align:center; margin-top:30px;">Events</h2>
+  <div class="events-table" style="margin: 10px auto; padding: 20px; width:90%;">
+    <table border="1" style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if events %}
+          {% for event in events %}
+            <tr data-event-id="{{ event.id }}">
+              <td>{{ event.title }}</td>
+              <td>{{ event.event_date.strftime('%Y-%m-%d') }}</td>
+              <td>{{ event.location }}</td>
+              <td>{{ event.description }}</td>
+              <td style="text-align: center;">
+                <div class="action-icons">
+                  <a href="{{ url_for('custom_admin.edit_event', event_id=event.id) }}" class="edit-icon" style="margin-right: 10px;"><i class="fas fa-edit"></i></a>
+                  <a href="{{ url_for('custom_admin.delete_event', event_id=event.id) }}" class="delete-icon"><i class="fas fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="5" style="text-align:center;">No events available.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Categories Table -->
+  <h2 style="text-align:center; margin-top:30px; >Categories</h2>
+  <div class="categories-table" style="margin: 10px auto; padding: 20px; width:90%;">
+    <table border="1" style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Number of Stores</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if categories %}
+          {% for cat in categories %}
+            <tr data-cat-id="{{ cat.id }}">
+              <td>{{ cat.name }}</td>
+              <td>{{ cat.stores|length }}</td>
+              <td style="text-align: center;">
+                <div class="action-icons">
+                  <a href="{{ url_for('custom_admin.edit_category', category_id=cat.id) }}" class="edit-icon" style="margin-right: 10px;"><i class="fas fa-edit"></i></a>
+                  <a href="{{ url_for('custom_admin.delete_category', category_id=cat.id) }}" class="delete-icon"><i class="fas fa-trash"></i></a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="3" style="text-align:center;">No categories available.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  {# --- Modals for Stores --- #}
+  <div id="edit-store-overlay" class="modal-overlay"></div>
+  <div id="edit-store-modal" class="modal">
+      <h4 style="text-align:center;">Edit Store</h4>
+      <form id="edit-store-form" method="POST">
+          <input type="hidden" id="edit-store-id" name="store_id">
+          <div class="form-group">
+              <label for="edit-store-name">Store Name:</label>
+              <input type="text" id="edit-store-name" name="name" required>
+          </div>
+          <div class="form-group">
+              <label for="edit-store-hours">Hours:</label>
+              <input type="text" id="edit-store-hours" name="hours" required>
+          </div>
+          <div class="form-group">
+              <label for="edit-store-description">Description:</label>
+              <textarea id="edit-store-description" name="description" required></textarea>
+          </div>
+          <div class="form-group">
+              <label for="edit-store-location">Location:</label>
+              <input type="text" id="edit-store-location" name="location" required>
+          </div>
+          <div style="display: flex; justify-content: center; margin-top: 10px;">
+              <button type="submit" style="margin-right: 10px;">Save</button>
+              <button type="button" onclick="hideModal('edit-store-modal')">Cancel</button>
+          </div>
+      </form>
+  </div>
+  <div id="delete-store-overlay" class="modal-overlay"></div>
+  <div id="delete-store-modal" class="modal">
+      <h4 style="text-align:center;">Confirm Deletion</h4>
+      <p id="delete-store-text" style="text-align: center;">Are you sure you want to delete <strong>Store Name</strong>?</p>
+      <div style="display: flex; justify-content: center; margin-top: 15px;">
+          <form id="delete-store-form" method="POST">
+              <button type="submit" style="padding: 0.5em 1em;">Yes, Delete</button>
+          </form>
+          <button type="button" id="cancel-delete-store" style="padding: 0.5em 1em; margin-left: 10px;">Cancel</button>
+      </div>
+  </div>
+
+  {# --- Modals for Promotions --- #}
+  <div id="edit-promo-overlay" class="modal-overlay"></div>
+  <div id="edit-promo-modal" class="modal">
+      <h4 style="text-align:center;">Edit Promotion</h4>
+      <form id="edit-promo-form" method="POST">
+          <input type="hidden" id="edit-promo-id" name="promotion_id">
+          <div class="form-group">
+              <label for="edit-promo-title">Title:</label>
+              <input type="text" id="edit-promo-title" name="title" required>
+          </div>
+          <div class="form-group">
+              <label for="edit-promo-description">Description:</label>
+              <textarea id="edit-promo-description" name="description" required></textarea>
+          </div>
+          <div class="form-group">
+              <label for="edit-promo-valid">Valid Until:</label>
+              <input type="date" id="edit-promo-valid" name="valid_until" required>
+          </div>
+          <div style="display: flex; justify-content: center; margin-top: 10px;">
+              <button type="submit" style="margin-right: 10px;">Save</button>
+              <button type="button" onclick="hideModal('edit-promo-modal')">Cancel</button>
+          </div>
+      </form>
+  </div>
+  <div id="delete-promo-overlay" class="modal-overlay"></div>
+  <div id="delete-promo-modal" class="modal">
+      <h4 style="text-align:center;">Confirm Deletion</h4>
+      <p id="delete-promo-text" style="text-align: center;">Are you sure you want to delete <strong>Promotion</strong>?</p>
+      <div style="display: flex; justify-content: center; margin-top: 15px;">
+          <form id="delete-promo-form" method="POST">
+              <button type="submit" style="padding: 0.5em 1em;">Yes, Delete</button>
+          </form>
+          <button type="button" id="cancel-delete-promo" style="padding: 0.5em 1em; margin-left: 10px;">Cancel</button>
+      </div>
+  </div>
+
+  {# --- Modals for Events --- #}
+  <div id="edit-event-overlay" class="modal-overlay"></div>
+  <div id="edit-event-modal" class="modal">
+      <h4 style="text-align:center;">Edit Event</h4>
+      <form id="edit-event-form" method="POST">
+          <input type="hidden" id="edit-event-id" name="event_id">
+          <div class="form-group">
+              <label for="edit-event-title">Title:</label>
+              <input type="text" id="edit-event-title" name="title" required>
+          </div>
+          <div class="form-group">
+              <label for="edit-event-date">Date:</label>
+              <input type="date" id="edit-event-date" name="event_date" required>
+          </div>
+          <div class="form-group">
+              <label for="edit-event-location">Location:</label>
+              <input type="text" id="edit-event-location" name="location" required>
+          </div>
+          <div class="form-group">
+              <label for="edit-event-description">Description:</label>
+              <textarea id="edit-event-description" name="description" required></textarea>
+          </div>
+          <div style="display: flex; justify-content: center; margin-top: 10px;">
+              <button type="submit" style="margin-right: 10px;">Save</button>
+              <button type="button" onclick="hideModal('edit-event-modal')">Cancel</button>
+          </div>
+      </form>
+  </div>
+  <div id="delete-event-overlay" class="modal-overlay"></div>
+  <div id="delete-event-modal" class="modal">
+      <h4 style="text-align:center;">Confirm Deletion</h4>
+      <p id="delete-event-text" style="text-align: center;">Are you sure you want to delete <strong>Event</strong>?</p>
+      <div style="display: flex; justify-content: center; margin-top: 15px;">
+          <form id="delete-event-form" method="POST">
+              <button type="submit" style="padding: 0.5em 1em;">Yes, Delete</button>
+          </form>
+          <button type="button" id="cancel-delete-event" style="padding: 0.5em 1em; margin-left: 10px;">Cancel</button>
+      </div>
+  </div>
+
+  {# --- Modals for Categories --- #}
+  <div id="edit-cat-overlay" class="modal-overlay"></div>
+  <div id="edit-cat-modal" class="modal">
+      <h4 style="text-align:center;">Edit Category</h4>
+      <form id="edit-cat-form" method="POST">
+          <input type="hidden" id="edit-cat-id" name="category_id">
+          <div class="form-group">
+              <label for="edit-cat-name">Category Name:</label>
+              <input type="text" id="edit-cat-name" name="name" required>
+          </div>
+          <div style="display: flex; justify-content: center; margin-top: 10px;">
+              <button type="submit" style="margin-right: 10px;">Save</button>
+              <button type="button" onclick="hideModal('edit-cat-modal')">Cancel</button>
+          </div>
+      </form>
+  </div>
+  <div id="delete-cat-overlay" class="modal-overlay"></div>
+  <div id="delete-cat-modal" class="modal">
+      <h4 style="text-align:center;">Confirm Deletion</h4>
+      <p id="delete-cat-text" style="text-align: center;">Are you sure you want to delete <strong>Category</strong>?</p>
+      <div style="display: flex; justify-content: center; margin-top: 15px;">
+          <form id="delete-cat-form" method="POST">
+              <button type="submit" style="padding: 0.5em 1em;">Yes, Delete</button>
+          </form>
+          <button type="button" id="cancel-delete-cat" style="padding: 0.5em 1em; margin-left: 10px;">Cancel</button>
+      </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+      function hideModal(modalId) {
+          console.log("Hiding modal:", modalId);
+          document.getElementById(modalId).style.display = "none";
+          const overlay = document.getElementById(modalId.replace('modal','overlay'));
+          if(overlay){ overlay.style.display = "none"; }
+      }
+      function showModal(modalId) {
+          console.log("Showing modal:", modalId);
+          document.getElementById(modalId).style.display = "block";
+          const overlay = document.getElementById(modalId.replace('modal','overlay'));
+          if(overlay){ overlay.style.display = "block"; }
+      }
+      // Expose functions globally to be accessible in inline onclick
+      window.hideModal = hideModal;
+      window.showModal = showModal;
+
+      // Debug logging: check that modals exist
+      console.log("Modals found:", 
+          document.getElementById("edit-store-modal"),
+          document.getElementById("delete-store-modal")
+      );
+      
+      // Example: attach click listener for edit-store link
+      const storeEditLinks = document.querySelectorAll('tr[data-store-id] .edit-icon');
+      storeEditLinks.forEach(link => {
+          link.addEventListener('click', function(e){
+              e.preventDefault();
+              console.log("Edit-store clicked for id:", link.closest("tr").getAttribute("data-store-id"));
+              const row = link.closest("tr");
+              const storeId = row.getAttribute("data-store-id");
+              document.getElementById("edit-store-id").value = storeId;
+              document.getElementById("edit-store-name").value = row.querySelector("td:nth-child(1)").textContent.trim();
+              document.getElementById("edit-store-hours").value = row.querySelector("td:nth-child(3)").textContent.trim();
+              document.getElementById("edit-store-description").value = row.querySelector("td:nth-child(6)").getAttribute("title");
+              document.getElementById("edit-store-location").value = row.querySelector("td:nth-child(7)").textContent.trim();
+              showModal("edit-store-modal");
+              // Set the form action using the store id.
+              document.getElementById("edit-store-form").action = "/admin-panel/edit_store/" + storeId;
+          });
+      });
+
+      // Similarly, add listeners for delete links
+      const storeDeleteLinks = document.querySelectorAll('tr[data-store-id] .delete-icon');
+      storeDeleteLinks.forEach(link => {
+          link.addEventListener('click', function(e){
+              e.preventDefault();
+              console.log("Delete-store clicked.");
+              const row = link.closest("tr");
+              const storeId = row.getAttribute("data-store-id");
+              const storeName = row.querySelector("td:first-child").textContent.trim();
+              document.getElementById("delete-store-text").innerHTML = `Are you sure you want to delete <strong>${storeName}</strong>?`;
+              document.getElementById("delete-store-form").action = link.getAttribute("href");
+              showModal("delete-store-modal");
+          });
+      });
+      
+      // Attach an explicit event listener for the delete modal cancel button:
+      const cancelDeleteStoreBtn = document.getElementById("cancel-delete-store");
+      if(cancelDeleteStoreBtn){
+          cancelDeleteStoreBtn.addEventListener("click", function(){
+              hideModal("delete-store-modal");
+          });
+      }
+      // Additional event listener code for promotion, event, and category modals...
+
+      // Log all modal elements to verify their existence:
+      console.log("Store modals:", 
+          document.getElementById("edit-store-modal"),
+          document.getElementById("delete-store-modal")
+      );
+      console.log("Promotion modals:", 
+          document.getElementById("edit-promo-modal"),
+          document.getElementById("delete-promo-modal")
+      );
+      console.log("Event modals:", 
+          document.getElementById("edit-event-modal"),
+          document.getElementById("delete-event-modal")
+      );
+      console.log("Category modals:", 
+          document.getElementById("edit-cat-modal"),
+          document.getElementById("delete-cat-modal")
+      );
+      // If any of these log as null then the corresponding modal HTML is not present.
+
+      // Promotion modals: Pre-populate edit fields from table row.
+      const promoEditLinks = document.querySelectorAll('tr[data-promo-id] .edit-icon');
+      promoEditLinks.forEach(link => {
+          link.addEventListener('click', function(e){
+              e.preventDefault();
+              const row = link.closest("tr");
+              const promoId = row.getAttribute("data-promo-id");
+              const title = row.querySelector("td:nth-child(1)").textContent.trim();
+              const description = row.querySelector("td:nth-child(2)").textContent.trim();
+              const validUntil = row.querySelector("td:nth-child(3)").textContent.trim();
+              document.getElementById("edit-promo-id").value = promoId;
+              document.getElementById("edit-promo-title").value = title;
+              document.getElementById("edit-promo-description").value = description;
+              document.getElementById("edit-promo-valid").value = validUntil;
+              showModal("edit-promo-modal");
+              document.getElementById("edit-promo-form").action = "/admin-panel/edit_promotion/" + promoId;
+          });
+      });
+
+      // Event modals: Pre-populate edit fields.
+      const eventEditLinks = document.querySelectorAll('tr[data-event-id] .edit-icon');
+      eventEditLinks.forEach(link => {
+          link.addEventListener('click', function(e){
+              e.preventDefault();
+              const row = link.closest("tr");
+              const eventId = row.getAttribute("data-event-id");
+              const title = row.querySelector("td:nth-child(1)").textContent.trim();
+              const date = row.querySelector("td:nth-child(2)").textContent.trim();
+              const location = row.querySelector("td:nth-child(3)").textContent.trim();
+              const description = row.querySelector("td:nth-child(4)").textContent.trim();
+              document.getElementById("edit-event-id").value = eventId;
+              document.getElementById("edit-event-title").value = title;
+              document.getElementById("edit-event-date").value = date;
+              document.getElementById("edit-event-location").value = location;
+              document.getElementById("edit-event-description").value = description;
+              showModal("edit-event-modal");
+              document.getElementById("edit-event-form").action = "/admin-panel/edit_event/" + eventId;
+          });
+      });
+
+      // Category modals: Pre-populate edit fields.
+      const catEditLinks = document.querySelectorAll('tr[data-cat-id] .edit-icon');
+      catEditLinks.forEach(link => {
+          link.addEventListener('click', function(e){
+              e.preventDefault();
+              const row = link.closest("tr");
+              const catId = row.getAttribute("data-cat-id");
+              const catName = row.querySelector("td:nth-child(1)").textContent.trim();
+              document.getElementById("edit-cat-id").value = catId;
+              document.getElementById("edit-cat-name").value = catName;
+              showModal("edit-cat-modal");
+              document.getElementById("edit-cat-form").action = "/admin-panel/edit_category/" + catId;
+          });
+      });
+
+      // Promotion modals
+      const promoDeleteLinks = document.querySelectorAll('tr[data-promo-id] .delete-icon');
+      promoDeleteLinks.forEach(link => {
+          link.addEventListener('click', function(e){
+              e.preventDefault();
+              console.log("Delete-promo clicked");
+              const row = link.closest("tr");
+              const promoTitle = row.querySelector("td:first-child").textContent.trim();
+              document.getElementById("delete-promo-text").innerHTML = `Are you sure you want to delete <strong>${promoTitle}</strong>?`;
+              document.getElementById("delete-promo-form").action = link.getAttribute("href");
+              showModal("delete-promo-modal");
+          });
+      });
+      
+      // Event modals
+      const eventDeleteLinks = document.querySelectorAll('tr[data-event-id] .delete-icon');
+      eventDeleteLinks.forEach(link => {
+          link.addEventListener('click', function(e){
+              e.preventDefault();
+              console.log("Delete-event clicked");
+              const row = link.closest("tr");
+              const eventTitle = row.querySelector("td:first-child").textContent.trim();
+              document.getElementById("delete-event-text").innerHTML = `Are you sure you want to delete <strong>${eventTitle}</strong>?`;
+              document.getElementById("delete-event-form").action = link.getAttribute("href");
+              showModal("delete-event-modal");
+          });
+      });
+
+      // Category modals
+      const catDeleteLinks = document.querySelectorAll('tr[data-cat-id] .delete-icon');
+      catDeleteLinks.forEach(link => {
+          link.addEventListener('click', function(e){
+              e.preventDefault();
+              console.log("Delete-category clicked");
+              const row = link.closest("tr");
+              const catName = row.querySelector("td:first-child").textContent.trim();
+              document.getElementById("delete-cat-text").innerHTML = `Are you sure you want to delete <strong>${catName}</strong>?`;
+              document.getElementById("delete-cat-form").action = link.getAttribute("href");
+              showModal("delete-cat-modal");
+          });
+      });
+
+      // Attach cancel handlers for these modals (if not already done), e.g.:
+      const cancelDeletePromoBtn = document.getElementById("cancel-delete-promo");
+      if(cancelDeletePromoBtn){
+         cancelDeletePromoBtn.addEventListener("click", () => hideModal("delete-promo-modal"));
+      }
+      const cancelDeleteEventBtn = document.getElementById("cancel-delete-event");
+      if(cancelDeleteEventBtn){
+         cancelDeleteEventBtn.addEventListener("click", () => hideModal("delete-event-modal"));
+      }
+      const cancelDeleteCatBtn = document.getElementById("cancel-delete-cat");
+      if(cancelDeleteCatBtn){
+         cancelDeleteCatBtn.addEventListener("click", () => hideModal("delete-cat-modal"));
+      }
+
+      // Debug: Log form submissions for the store edit form.
+      const editStoreForm = document.getElementById("edit-store-form");
+      if(editStoreForm) {
+          editStoreForm.addEventListener("submit", function(e) {
+              console.log("Store edit form submitted");
+          });
+      }
+      
+      // Do similar for promotion, event, and category edit forms if needed.
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Frasers Experience - Events{% endblock %}
+
+{% block navigation %}
+// ...existing navigation...
+{% endblock %}
+
+{% block content %}
+<section class="events" >
+    <div class="store-layout">
+        {% if upcoming_events %}
+            {% for event in upcoming_events %}
+                <div class="card-layout" style="display: flex; flex-direction: column;gap: 10px; width: 300px;">
+                    <div class="store-card-img" style="
+                        background-image: url('{{ url_for('static', filename=img if img else 'images/event_default.jpg') }}');
+                        ">
+                    </div>
+                    <div class="store-card-text">
+                        <p style="margin: 0; font-size: 14px; word-wrap: break-word;">
+                            {{ event.title }}. {{ event.location }}. Date: {{ event.event_date.strftime('%Y-%m-%d') }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center;">No upcoming events found.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Any events page specific scripts if needed
+</script>
+{% endblock %}
